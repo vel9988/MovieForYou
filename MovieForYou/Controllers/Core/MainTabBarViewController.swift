@@ -33,10 +33,10 @@ class MainTabBarViewController: UITabBarController {
         vc3.tabBarItem.selectedImage = UIImage(systemName: "sparkle.magnifyingglass")
         vc4.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
 
-        vc1.title = "Главное"
-        vc2.title = "Мое"
-        vc3.title = "Поиск"
-        vc4.title = "Профиль"
+        vc1.title = "Home"
+        vc2.title = "My"
+        vc3.title = "Search"
+        vc4.title = "Profile"
         
         tabBar.tintColor = .label
 
