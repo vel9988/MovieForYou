@@ -17,7 +17,7 @@ class HomeHeaderUIView: UIView {
         button.setImage(buttonImage, for: .normal)
         button.setTitle("Play now", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.setTitleColor(UIColor.label, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         return button
@@ -30,7 +30,7 @@ class HomeHeaderUIView: UIView {
         button.setImage(buttonImage, for: .normal)
         button.setTitle("Add", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.setTitleColor(UIColor.label, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         return button
@@ -44,7 +44,7 @@ class HomeHeaderUIView: UIView {
         return imageView
     }()
 
-    // MARK: - Lifecycle
+    // MARK: - Init
     override init(frame: CGRect) {
         super .init(frame: frame)
         
