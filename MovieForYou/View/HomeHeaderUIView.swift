@@ -48,8 +48,12 @@ class HomeHeaderUIView: UIView {
     override init(frame: CGRect) {
         super .init(frame: frame)
         
-        configureUI()
-        
+        addSubview(homeImageView)
+        addGradient()
+        addSubview(playButton)
+        addSubview(addButton)
+        applyConstraints()
+       
     }
     
     required init?(coder: NSCoder) {
@@ -62,18 +66,10 @@ class HomeHeaderUIView: UIView {
     }
     
     // MARK: - Private methods
-    private func configureUI() {
-        addSubview(homeImageView)
-        addGradient()
-        addSubview(playButton)
-        addSubview(addButton)
-        applyConstraints()
-
-    }
-    
     private func addGradient() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
+            UIColor.clear.cgColor,
             UIColor.clear.cgColor,
             UIColor.systemBackground.cgColor
         ]
@@ -81,7 +77,13 @@ class HomeHeaderUIView: UIView {
         layer.addSublayer(gradientLayer)
     }
     
-    // MARK: - SetupConstraints
+    // MARK: - Public method
+    public func configure(with model: TitleViewModel) {
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else { return }
+        homeImageView.sd_setImage(with: url)
+    }
+    
+    // MARK: - Setup constraints
     private func applyConstraints() {
         let playButtonConstraints = [
             playButton.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),

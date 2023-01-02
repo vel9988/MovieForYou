@@ -21,6 +21,7 @@ struct Title: Decodable {
     let voteCount: Int
     let releaseDate: String?
     let voteAverage: Double
+    let popularity: Double
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -32,6 +33,7 @@ struct Title: Decodable {
         case voteCount = "vote_count"
         case releaseDate = "release_date"
         case voteAverage = "vote_average"
+        case popularity
     }
 }
 

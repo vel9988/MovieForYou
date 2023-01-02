@@ -26,15 +26,22 @@ class HomeViewController: UIViewController {
         return table
     }()
     
+    private var headerView: HomeHeaderUIView?
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .systemBackground
+        view.addSubview(homeFeedTable)
+        
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
         
-        configureUI()
-        
+        configureHomeHeaderView()
+        headerView = HomeHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 550))
+        homeFeedTable.tableHeaderView = headerView
+                
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,19 +49,24 @@ class HomeViewController: UIViewController {
         homeFeedTable.frame = view.bounds
     }
     
-    // MARK: - Private methods
-    private func configureUI() {
-        view.backgroundColor = .systemBackground
-        view.addSubview(homeFeedTable)
-        
-        let headerView = HomeHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
-        homeFeedTable.tableHeaderView = headerView
+    // MARK: - Private method
+    private func configureHomeHeaderView() {
+        APICaller.shared.getPopularMovies { [weak self] result in
+            switch result {
+            case .success(let titles):
+                let randomTitle = titles.randomElement()
+                self?.headerView?.configure(with: TitleViewModel(titleName: randomTitle?.originalTitle ?? "",
+                                                           posterURL: randomTitle?.posterPath ?? ""))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         sectionTitles.count
@@ -69,6 +81,9 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else { return UITableViewCell() }
+        
+        cell.delegate = self
+        
         switch indexPath.section {
         case Sections.TrendingMovies.rawValue:
             APICaller.shared.getTrendingMovies { result in
@@ -89,7 +104,7 @@ extension HomeViewController: UITableViewDataSource {
                 }
             }
         case Sections.Popular.rawValue:
-            APICaller.shared.getTrendingPopular { result in
+            APICaller.shared.getPopularMovies { result in
                 switch result {
                 case .success(let titles):
                     cell.configure(with: titles)
@@ -98,7 +113,7 @@ extension HomeViewController: UITableViewDataSource {
                 }
             }
         case Sections.UpcomingMovies.rawValue:
-            APICaller.shared.getTrendingUpcoming { result in
+            APICaller.shared.getUpcomingMovies { result in
                 switch result {
                 case .success(let titles):
                     cell.configure(with: titles)
@@ -107,7 +122,7 @@ extension HomeViewController: UITableViewDataSource {
                 }
             }
         case Sections.TopRated.rawValue:
-            APICaller.shared.getTrendingTopRated { result in
+            APICaller.shared.getTopRatedMovies { result in
                 switch result {
                 case .success(let titles):
                     cell.configure(with: titles)
@@ -144,5 +159,18 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         40
     }
+    
+}
+
+// MARK: - CollectionViewTableViewCellDelegate
+extension HomeViewController: CollectionViewTableViewCellDelegate {
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     
 }
