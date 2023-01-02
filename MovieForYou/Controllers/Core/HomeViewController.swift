@@ -56,7 +56,8 @@ class HomeViewController: UIViewController {
             case .success(let titles):
                 let randomTitle = titles.randomElement()
                 self?.headerView?.configure(with: TitleViewModel(titleName: randomTitle?.originalTitle ?? "",
-                                                           posterURL: randomTitle?.posterPath ?? ""))
+                                                           posterURL: randomTitle?.posterPath ?? "",
+                                                                 rating: randomTitle?.voteAverage ?? 0))
             case .failure(let error):
                 print(error.localizedDescription)
             }

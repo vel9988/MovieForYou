@@ -43,6 +43,13 @@ class HomeHeaderUIView: UIView {
         imageView.image = UIImage(named: "baner")
         return imageView
     }()
+    
+    private let ratingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        return label
+    }()
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -52,6 +59,7 @@ class HomeHeaderUIView: UIView {
         addGradient()
         addSubview(playButton)
         addSubview(addButton)
+        addSubview(ratingLabel)
         applyConstraints()
        
     }
@@ -81,6 +89,9 @@ class HomeHeaderUIView: UIView {
     public func configure(with model: TitleViewModel) {
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else { return }
         homeImageView.sd_setImage(with: url)
+        DispatchQueue.main.async {
+            self.ratingLabel.text = "⭐️ \(model.rating)"
+        }
     }
     
     // MARK: - Setup constraints
@@ -97,8 +108,14 @@ class HomeHeaderUIView: UIView {
             addButton.widthAnchor.constraint(equalToConstant: 140)
         ]
         
+        let ratingLabelConstraints = [
+            ratingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            ratingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+        ]
+
         NSLayoutConstraint.activate(playButtonConstraints)
         NSLayoutConstraint.activate(addButtonConstraints)
+        NSLayoutConstraint.activate(ratingLabelConstraints)
     }
     
     
