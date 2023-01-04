@@ -20,15 +20,15 @@ class MainTabBarViewController: UITabBarController {
     
     // MARK: - Private methods
     private func setupViewControllers() {
-        let vc1 = HomeViewController()
-        let vc2 = MyViewController()
-        let vc3 = SearchViewController()
-        let vc4 = ProfileViewController()
+        let vc1 = UINavigationController(rootViewController: HomeViewController())
+        let vc2 = UINavigationController(rootViewController: MyViewController())
+        let vc3 = UINavigationController(rootViewController: SearchViewController())
+        let vc4 = UINavigationController(rootViewController: ProfileViewController())
         
         vc1.tabBarItem.image = UIImage(systemName: "house")
         vc2.tabBarItem.image = UIImage(systemName: "star")
-        vc3.tabBarItem.image = UIImage(systemName: "text.magnifyingglass") // sparkle.magnifyingglass
-        vc4.tabBarItem.image = UIImage(systemName: "person") // person.fill
+        vc3.tabBarItem.image = UIImage(systemName: "text.magnifyingglass")
+        vc4.tabBarItem.image = UIImage(systemName: "person")
         
         vc1.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
         vc2.tabBarItem.selectedImage = UIImage(systemName: "star.fill")

@@ -28,8 +28,8 @@ class TitlePreviewViewController: UIViewController {
     private let addButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemGray
-        button.setTitle("Add", for: .normal)
+        button.backgroundColor = .systemRed
+        button.setTitle("Add to favorites", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
@@ -44,6 +44,18 @@ class TitlePreviewViewController: UIViewController {
         return label
     }()
     
+    private let ratingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.backgroundColor = .systemGray4
+        label.alpha = 0.8
+        label.textAlignment = .center
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 15
+        return label
+    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,15 +64,17 @@ class TitlePreviewViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(addButton)
         view.addSubview(overviewLabel)
+        view.addSubview(ratingLabel)
         
         configureConstraints()
         
     }
     
     // MARK: - Public method
-    public func configure(with model: TitlePreviewViewModel) {
+    func configure(with model: TitlePreviewViewModel) {
         titleLabel.text = model.title
         overviewLabel.text = model.overview
+        ratingLabel.text = "⭐️ " + String(format: "%.1f", model.rating)
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.youTubeVideoTrailer.id.videoId)") else { return }
         let urlRequest = URLRequest(url: url)
         webView.load(urlRequest)
@@ -78,13 +92,13 @@ class TitlePreviewViewController: UIViewController {
         let titleLabelConstraints = [
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            titleLabel.trailingAnchor.constraint(equalTo: ratingLabel.leadingAnchor, constant: -20)
         ]
         
         let addButtonConstraints = [
             addButton.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             addButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
-            addButton.widthAnchor.constraint(equalToConstant: 120)
+            addButton.widthAnchor.constraint(equalToConstant: 150)
         ]
         
         let overviewLabelConstraints = [
@@ -93,10 +107,18 @@ class TitlePreviewViewController: UIViewController {
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ]
         
+        let ratingLabelConstraints = [
+            ratingLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            ratingLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+            ratingLabel.widthAnchor.constraint(equalToConstant: 90),
+            ratingLabel.heightAnchor.constraint(equalToConstant: 30)
+        ]
+        
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(addButtonConstraints)
         NSLayoutConstraint.activate(overviewLabelConstraints)
+        NSLayoutConstraint.activate(ratingLabelConstraints)
         
     }
     

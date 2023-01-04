@@ -48,6 +48,11 @@ class HomeHeaderUIView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.backgroundColor = .systemGray4
+        label.alpha = 0.8
+        label.textAlignment = .center
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 15
         return label
     }()
 
@@ -89,8 +94,8 @@ class HomeHeaderUIView: UIView {
     public func configure(with model: TitleViewModel) {
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else { return }
         homeImageView.sd_setImage(with: url)
-        DispatchQueue.main.async {
-            self.ratingLabel.text = "⭐️ \(model.rating)"
+        DispatchQueue.main.async { [weak self] in
+            self?.ratingLabel.text = "⭐️ \(model.rating)"
         }
     }
     
@@ -109,8 +114,10 @@ class HomeHeaderUIView: UIView {
         ]
         
         let ratingLabelConstraints = [
-            ratingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            ratingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+            ratingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            ratingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            ratingLabel.widthAnchor.constraint(equalToConstant: 90),
+            ratingLabel.heightAnchor.constraint(equalToConstant: 40)
         ]
 
         NSLayoutConstraint.activate(playButtonConstraints)

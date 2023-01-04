@@ -82,13 +82,14 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
         let title = titles[indexPath.row]
         guard let titleName = title.originalTitle ?? title.originalName else { return }
         
-        APICaller.shared.getMovie(with: titleName + "trailer") { [weak self] result in
+        APICaller.shared.getMovie(with: titleName + " trailer") { [weak self] result in
             switch result {
             case .success(let videoElement):
                 guard let strongSelf = self else { return }
                 let viewModel = TitlePreviewViewModel(title: titleName,
                                                       youTubeVideoTrailer: videoElement,
-                                                      overview: title.overview ?? "No overview")
+                                                      overview: title.overview ?? "No overview",
+                                                      rating: title.voteAverage)
                 self?.delegate?.collectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
             case .failure(let error):
                 print(error.localizedDescription)

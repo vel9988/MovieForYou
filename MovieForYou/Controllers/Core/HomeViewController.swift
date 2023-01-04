@@ -15,7 +15,7 @@ enum Sections: Int {
     case TopRated = 4
 }
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     let sectionTitles = ["Trending Movies", "Trending Tv", "Popular", "Upcoming", "Top rated"]
     
@@ -38,10 +38,12 @@ class HomeViewController: UIViewController {
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
         
+        configureNavBar()
+        
         configureHomeHeaderView()
         headerView = HomeHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 550))
         homeFeedTable.tableHeaderView = headerView
-                
+                        
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,6 +64,17 @@ class HomeViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func configureNavBar() {
+        let size: CGFloat = 40
+        let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: size, height: size))
+        logoImageView.contentMode = .scaleAspectFill
+        logoImageView.image = UIImage(named: "baner")
+        
+        let middleView = UIView(frame: CGRect(x: 0, y: 0, width: size, height: size))
+        middleView.addSubview(logoImageView)
+        navigationItem.titleView = middleView
     }
     
     
@@ -161,6 +174,14 @@ extension HomeViewController: UITableViewDataSource {
         40
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let defaultOffSet = view.safeAreaInsets.top
+        let offset = scrollView.contentOffset.y + defaultOffSet
+        
+        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+    }
+    
+    
 }
 
 // MARK: - CollectionViewTableViewCellDelegate
@@ -172,6 +193,5 @@ extension HomeViewController: CollectionViewTableViewCellDelegate {
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
     
 }
