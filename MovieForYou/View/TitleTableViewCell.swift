@@ -23,14 +23,15 @@ class TitleTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(titleLabel)
         addSubview(titlesPosterUIImageView)
+        addSubview(titleLabel)
         
         applyConstraints()
     }
@@ -52,11 +53,13 @@ class TitleTableViewCell: UITableViewCell {
             titlesPosterUIImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titlesPosterUIImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             titlesPosterUIImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            titlesPosterUIImageView.widthAnchor.constraint(equalToConstant: 100)
+            titlesPosterUIImageView.widthAnchor.constraint(equalToConstant: 100),
+            titlesPosterUIImageView.heightAnchor.constraint(equalToConstant: 130)
         ]
         
         let titleLabelConstraints = [
             titleLabel.leadingAnchor.constraint(equalTo: titlesPosterUIImageView.trailingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ]
         
