@@ -29,7 +29,7 @@ class TitlePreviewViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemRed
-        button.setTitle("Add to favorites", for: .normal)
+        button.setTitle("Add to favourites", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
@@ -70,7 +70,7 @@ class TitlePreviewViewController: UIViewController {
         
     }
     
-    // MARK: - Public method
+    // MARK: - Methods
     func configure(with model: TitlePreviewViewModel) {
         titleLabel.text = model.title
         overviewLabel.text = model.overview

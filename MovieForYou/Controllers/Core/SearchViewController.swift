@@ -118,7 +118,7 @@ extension SearchViewController: UITableViewDelegate {
                     let vc = TitlePreviewViewController()
                     vc.configure(with: TitlePreviewViewModel(title: titleName,
                                                              youTubeVideoTrailer: videoElement,
-                                                             overview: title.overview ?? "",
+                                                             overview: title.overview ?? "No overview",
                                                              rating: title.voteAverage))
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }

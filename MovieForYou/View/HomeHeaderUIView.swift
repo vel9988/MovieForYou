@@ -66,6 +66,8 @@ class HomeHeaderUIView: UIView {
         addSubview(addButton)
         addSubview(ratingLabel)
         applyConstraints()
+        
+        addButton.addTarget(self, action: #selector(addTitleAction), for: .touchUpInside)
        
     }
     
@@ -79,6 +81,10 @@ class HomeHeaderUIView: UIView {
     }
     
     // MARK: - Private methods
+    @objc private func addTitleAction() {
+        
+    }
+    
     private func addGradient() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [

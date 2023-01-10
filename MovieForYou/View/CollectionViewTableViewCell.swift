@@ -44,15 +44,29 @@ class CollectionViewTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
     }
     
+    // MARK: - Public method
     public func configure(with titles: [Title]) {
         self.titles = titles
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
+        }
+    }
+    
+    // MARK: - Private method
+    private func addTitleAt(indexPath: IndexPath) {
+        DataPersistenceManager.shared.addTitle(with: titles[indexPath.row]) { result in
+            switch result {
+            case .success():
+                NotificationCenter.default.post(name: NSNotification.Name("add"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -95,6 +109,16 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(previewProvider: nil) { [weak self] _ in
+            let addAction = UIAction(title: "Add to favourites", state: .off) { _ in
+                self?.addTitleAt(indexPath: indexPaths[0])
+            }
+            return UIMenu(title: "", options: .displayInline, children: [addAction])
+        }
+        return config
     }
     
 }

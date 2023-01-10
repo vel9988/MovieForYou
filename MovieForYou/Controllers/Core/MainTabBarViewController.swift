@@ -21,7 +21,7 @@ class MainTabBarViewController: UITabBarController {
     // MARK: - Private methods
     private func setupViewControllers() {
         let vc1 = UINavigationController(rootViewController: HomeViewController())
-        let vc2 = UINavigationController(rootViewController: MyViewController())
+        let vc2 = UINavigationController(rootViewController: MyFavouritesViewController())
         let vc3 = UINavigationController(rootViewController: SearchViewController())
         let vc4 = UINavigationController(rootViewController: ProfileViewController())
         
@@ -36,7 +36,7 @@ class MainTabBarViewController: UITabBarController {
         vc4.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
 
         vc1.title = "Home"
-        vc2.title = "My"
+        vc2.title = "Favourites"
         vc3.title = "Search"
         vc4.title = "Profile"
         

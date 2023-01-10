@@ -78,7 +78,7 @@ extension SearchResultsViewController: UICollectionViewDataSource {
             case .success(let videoElement):
                 self?.delegate?.searchResultsViewControllerDidTapItem(TitlePreviewViewModel(title: titleName,
                                                                                             youTubeVideoTrailer: videoElement,
-                                                                                            overview: title.overview ?? "",
+                                                                                            overview: title.overview ?? "No overview",
                                                                                             rating: title.voteAverage))
             case .failure(let error):
                 print(error.localizedDescription)
