@@ -40,7 +40,7 @@ class TitlePreviewViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18, weight: .regular)
-        label.numberOfLines = 0
+        label.numberOfLines = 13
         return label
     }()
     
@@ -104,8 +104,7 @@ class TitlePreviewViewController: UIViewController {
         let overviewLabelConstraints = [
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             overviewLabel.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 25),
-            overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ]
+            overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)        ]
         
         let ratingLabelConstraints = [
             ratingLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
