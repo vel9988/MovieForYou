@@ -43,6 +43,7 @@ final class HomeViewController: UIViewController {
         configureHomeHeaderView()
         headerView = HomeHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 550))
         homeFeedTable.tableHeaderView = headerView
+        headerView?.delegate = self
                         
     }
     
@@ -194,5 +195,29 @@ extension HomeViewController: CollectionViewTableViewCellDelegate {
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+}
+
+// MARK: - HomeHeaderUIViewDelegate
+extension HomeViewController: HomeHeaderUIViewDelegate {
+    func homeHeaderUIViewDidTapPlay(with title: Title) {
+        let titleName = title.originalTitle ?? title.originalName ?? ""
+        APICaller.shared.getMovie(with: titleName) { [weak self] result in
+            switch result {
+            case .success(let videoElement):
+                DispatchQueue.main.async {
+                    let vc = TitlePreviewViewController()
+                    vc.configure(with: TitlePreviewViewModel(title: titleName,
+                                                             youTubeVideoTrailer: videoElement,
+                                                             overview: title.overview ?? "",
+                                                             rating: title.voteAverage))
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
 }

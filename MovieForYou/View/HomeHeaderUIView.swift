@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol HomeHeaderUIViewDelegate: AnyObject {
+    func homeHeaderUIViewDidTapPlay(with title: Title)
+}
+
 class HomeHeaderUIView: UIView {
     
     private var title: Title?
+    
+    weak var delegate: HomeHeaderUIViewDelegate?
     
     // MARK: - Subviews
     private let playButton: UIButton = {
@@ -85,7 +91,8 @@ class HomeHeaderUIView: UIView {
     
     // MARK: - Private methods
     @objc private func playTitleAction() {
-        
+        guard let title = title else { return }
+        delegate?.homeHeaderUIViewDidTapPlay(with: title)
     }
     
     @objc private func addTitleAction() {
