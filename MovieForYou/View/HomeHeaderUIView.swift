@@ -9,6 +9,8 @@ import UIKit
 
 class HomeHeaderUIView: UIView {
     
+    private var title: Title?
+    
     // MARK: - Subviews
     private let playButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -68,6 +70,7 @@ class HomeHeaderUIView: UIView {
         applyConstraints()
         
         addButton.addTarget(self, action: #selector(addTitleAction), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playTitleAction), for: .touchUpInside)
        
     }
     
@@ -81,8 +84,20 @@ class HomeHeaderUIView: UIView {
     }
     
     // MARK: - Private methods
-    @objc private func addTitleAction() {
+    @objc private func playTitleAction() {
         
+    }
+    
+    @objc private func addTitleAction() {
+        guard let title = title else { return }
+        DataPersistenceManager.shared.addTitle(with: title) { result in
+            switch result {
+            case .success():
+                NotificationCenter.default.post(name: NSNotification.Name("add"), object: nil)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func addGradient() {
@@ -97,9 +112,10 @@ class HomeHeaderUIView: UIView {
     }
     
     // MARK: - Public method
-    public func configure(with model: TitleViewModel) {
+    public func configure(with model: TitleViewModel, title: Title) {
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else { return }
         homeImageView.sd_setImage(with: url)
+        self.title = title
         DispatchQueue.main.async { [weak self] in
             self?.ratingLabel.text = "⭐️ \(model.rating)"
         }

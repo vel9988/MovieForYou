@@ -56,10 +56,11 @@ final class HomeViewController: UIViewController {
         APICaller.shared.getPopularMovies { [weak self] result in
             switch result {
             case .success(let titles):
-                let randomTitle = titles.randomElement()
-                self?.headerView?.configure(with: TitleViewModel(titleName: randomTitle?.originalTitle ?? "",
-                                                           posterURL: randomTitle?.posterPath ?? "",
-                                                                 rating: randomTitle?.voteAverage ?? 0))
+                guard let randomTitle = titles.randomElement() else { return }
+                self?.headerView?.configure(with: TitleViewModel(titleName: randomTitle.originalTitle ?? "",
+                                                           posterURL: randomTitle.posterPath ?? "",
+                                                                 rating: randomTitle.voteAverage),
+                                            title: randomTitle)
             case .failure(let error):
                 print(error.localizedDescription)
             }
