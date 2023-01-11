@@ -48,7 +48,6 @@ class HomeHeaderUIView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "baner")
         return imageView
     }()
     

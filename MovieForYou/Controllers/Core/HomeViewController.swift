@@ -79,6 +79,10 @@ final class HomeViewController: UIViewController {
         navigationItem.titleView = middleView
     }
     
+    @objc private func allButtonTapped() {
+        
+    }
+    
     
 }
 
@@ -162,6 +166,19 @@ extension HomeViewController: UITableViewDataSource {
                                          height: header.bounds.height)
         header.textLabel?.textColor = .label
         header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
+        
+        let button = UIButton(type: .system)
+        button.setTitle("All", for: .normal)
+        button.tintColor = .label
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        button.addTarget(self, action: #selector(allButtonTapped), for: .touchUpInside)
+        header.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.rightAnchor.constraint(equalTo: header.rightAnchor, constant: -20).isActive = true
+        button.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
+
+
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

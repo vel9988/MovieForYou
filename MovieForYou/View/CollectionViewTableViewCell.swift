@@ -29,6 +29,13 @@ class CollectionViewTableViewCell: UITableViewCell {
         collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
         return collectionView
     }()
+    
+    private let viewAllButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("View all", for: .normal)
+        return button
+    }()
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -37,6 +44,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
     }
     
     
@@ -70,6 +78,16 @@ class CollectionViewTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: - Setup constraints
+    private func configureConstraints(with cell: TitleCollectionViewCell) {
+        let viewAllButtonConstraints = [
+            viewAllButton.topAnchor.constraint(equalTo: cell.topAnchor, constant: 10),
+            viewAllButton.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -10)
+        ]
+        
+        NSLayoutConstraint.activate(viewAllButtonConstraints)
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate
@@ -88,6 +106,9 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TitleCollectionViewCell else { return UICollectionViewCell() }
         guard let model = titles[indexPath.row].posterPath else { return UICollectionViewCell() }
         cell.configure(with: model)
+        
+        cell.addSubview(viewAllButton)        
+        
         return cell
     }
     
