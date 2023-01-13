@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA0041322971492E006FFA17 /* AllMoviesCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0041312971492E006FFA17 /* AllMoviesCategoryViewController.swift */; };
 		EA0E761129583DAE00ABD585 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0E761029583DAE00ABD585 /* APICaller.swift */; };
 		EA0E7613295846B000ABD585 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0E7612295846B000ABD585 /* TitleCollectionViewCell.swift */; };
 		EA0E761B2958722D00ABD585 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0E761A2958722D00ABD585 /* Extension.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA0041312971492E006FFA17 /* AllMoviesCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMoviesCategoryViewController.swift; sourceTree = "<group>"; };
 		EA0E761029583DAE00ABD585 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		EA0E7612295846B000ABD585 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA0E761A2958722D00ABD585 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				EA0E7626295AE59100ABD585 /* TitlePreviewViewController.swift */,
 				EA8AD2892965723E00DAC3B8 /* SearchResultsViewController.swift */,
+				EA0041312971492E006FFA17 /* AllMoviesCategoryViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				EA8AD28A2965723E00DAC3B8 /* SearchResultsViewController.swift in Sources */,
 				EA0E761129583DAE00ABD585 /* APICaller.swift in Sources */,
 				EA0E761B2958722D00ABD585 /* Extension.swift in Sources */,
+				EA0041322971492E006FFA17 /* AllMoviesCategoryViewController.swift in Sources */,
 				EA0E7627295AE59100ABD585 /* TitlePreviewViewController.swift in Sources */,
 				EA0E7613295846B000ABD585 /* TitleCollectionViewCell.swift in Sources */,
 				EAEFF1F329546F4800E262E8 /* HomeViewController.swift in Sources */,

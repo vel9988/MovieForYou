@@ -10,6 +10,8 @@ import WebKit
 
 class TitlePreviewViewController: UIViewController {
     
+//    private var selectedTitle: Title?
+    
     // MARK: - Subviews
     private let webView: WKWebView = {
         let webView = WKWebView()

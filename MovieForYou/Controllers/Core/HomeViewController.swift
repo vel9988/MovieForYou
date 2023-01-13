@@ -79,8 +79,82 @@ final class HomeViewController: UIViewController {
         navigationItem.titleView = middleView
     }
     
-    @objc private func allButtonTapped() {
-        
+    // MARK: - Privat method
+    @objc private func allButtonTapped(sender : UIButton) {
+        switch sender.tag {
+        case Sections.TrendingMovies.rawValue:
+            APICaller.shared.getTrendingMovies { result in
+                switch result {
+                case .success(let titles):
+                    DispatchQueue.main.async {
+                        let vc = AllMoviesCategoryViewController()
+                        vc.configure(with: titles)
+                        vc.title = self.sectionTitles[sender.tag]
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.TrendingTv.rawValue:
+            APICaller.shared.getTrendingTvs { result in
+                switch result {
+                case .success(let titles):
+                    DispatchQueue.main.async {
+                        let vc = AllMoviesCategoryViewController()
+                        vc.configure(with: titles)
+                        vc.title = self.sectionTitles[sender.tag]
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.Popular.rawValue:
+            APICaller.shared.getPopularMovies { result in
+                switch result {
+                case .success(let titles):
+                    DispatchQueue.main.async {
+                        let vc = AllMoviesCategoryViewController()
+                        vc.configure(with: titles)
+                        vc.title = self.sectionTitles[sender.tag]
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.UpcomingMovies.rawValue:
+            APICaller.shared.getUpcomingMovies { result in
+                switch result {
+                case .success(let titles):
+                    DispatchQueue.main.async {
+                        let vc = AllMoviesCategoryViewController()
+                        vc.configure(with: titles)
+                        vc.title = self.sectionTitles[sender.tag]
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.TopRated.rawValue:
+            APICaller.shared.getTopRatedMovies { result in
+                switch result {
+                case .success(let titles):
+                    DispatchQueue.main.async {
+                        let vc = AllMoviesCategoryViewController()
+                        vc.configure(with: titles)
+                        vc.title = self.sectionTitles[sender.tag]
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        default:
+            break
+        }
     }
     
     
@@ -167,17 +241,17 @@ extension HomeViewController: UITableViewDataSource {
         header.textLabel?.textColor = .label
         header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
         
+        //????????????????????????
         let button = UIButton(type: .system)
         button.setTitle("All", for: .normal)
         button.tintColor = .label
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        button.tag = section
         button.addTarget(self, action: #selector(allButtonTapped), for: .touchUpInside)
         header.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.rightAnchor.constraint(equalTo: header.rightAnchor, constant: -20).isActive = true
         button.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
-
-
         
     }
     
@@ -191,13 +265,6 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         40
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let defaultOffSet = view.safeAreaInsets.top
-        let offset = scrollView.contentOffset.y + defaultOffSet
-        
-        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
     
     

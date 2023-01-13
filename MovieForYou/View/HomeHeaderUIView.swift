@@ -96,7 +96,7 @@ class HomeHeaderUIView: UIView {
     
     @objc private func addTitleAction() {
         guard let title = title else { return }
-        DataPersistenceManager.shared.addTitle(with: title) { result in
+        DataPersistenceManager.shared.saveTitle(with: title) { result in
             switch result {
             case .success():
                 NotificationCenter.default.post(name: NSNotification.Name("add"), object: nil)

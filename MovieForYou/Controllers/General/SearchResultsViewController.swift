@@ -17,6 +17,7 @@ class SearchResultsViewController: UIViewController {
     
     public weak var delegate: SearchResultsViewControllerDelegate?
     
+    // MARK: - Subviews
     public let searchResultsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: 200)
@@ -26,6 +27,7 @@ class SearchResultsViewController: UIViewController {
         return collectionView
     }()
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

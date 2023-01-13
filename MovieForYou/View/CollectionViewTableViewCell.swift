@@ -30,12 +30,6 @@ class CollectionViewTableViewCell: UITableViewCell {
         return collectionView
     }()
     
-    private let viewAllButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("View all", for: .normal)
-        return button
-    }()
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -68,7 +62,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     
     // MARK: - Private method
     private func addTitleAt(indexPath: IndexPath) {
-        DataPersistenceManager.shared.addTitle(with: titles[indexPath.row]) { result in
+        DataPersistenceManager.shared.saveTitle(with: titles[indexPath.row]) { result in
             switch result {
             case .success():
                 NotificationCenter.default.post(name: NSNotification.Name("add"), object: nil)
@@ -76,16 +70,6 @@ class CollectionViewTableViewCell: UITableViewCell {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    // MARK: - Setup constraints
-    private func configureConstraints(with cell: TitleCollectionViewCell) {
-        let viewAllButtonConstraints = [
-            viewAllButton.topAnchor.constraint(equalTo: cell.topAnchor, constant: 10),
-            viewAllButton.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -10)
-        ]
-        
-        NSLayoutConstraint.activate(viewAllButtonConstraints)
     }
     
 }
@@ -106,9 +90,7 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TitleCollectionViewCell else { return UICollectionViewCell() }
         guard let model = titles[indexPath.row].posterPath else { return UICollectionViewCell() }
         cell.configure(with: model)
-        
-        cell.addSubview(viewAllButton)        
-        
+                
         return cell
     }
     
@@ -131,6 +113,7 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
             }
         }
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
         let config = UIContextMenuConfiguration(previewProvider: nil) { [weak self] _ in
