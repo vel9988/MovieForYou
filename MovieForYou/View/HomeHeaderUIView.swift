@@ -79,6 +79,7 @@ class HomeHeaderUIView: UIView {
        
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError()
     }
