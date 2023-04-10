@@ -1,20 +1,23 @@
 # MovieForYou
 
-**APP**: Movie aggregator based on the API (Final OTUS study project)
+**APP**: Movie aggregator based on the API
 
 **Description**: An application that simulates the basic functionality of a typical Netflix/Kinopoisk movie aggregator by connecting to imdb-api.com and the YouTube data API.
 
-**Tech Stack**: UIKit, SnapKit, CoreData, FirebaseAuth, Firestore, URLSession, REST API, SDWebImage, AVKit, IOSPlayer, SwiftPackageManager
+**Tech Stack**: UIKit, CoreData, URLSession, SDWebImage, WebKit, SwiftPackageManager
 
 **What was done**:
 
 - Used SwiftPackageManager to connect additional modules
 - Implemented UI via code (UIKit)
-- Implemented autolayout using Snap Kit
-- Used FirebaseAuth to register and authenticate users
-- Used Firestore for remote storage of user data
 - Organized persistent layer using CoreData for local data storage
-- Created network layer via URLSession to work with API (GET requests)
+- Created network layer via URLSession to work with API
 - Used SDWebImage for asynchronous loading and caching of images
-- Used AVKit for background start screen and Youtube IOSPlayer to download trailers
 - Used SwiftPackageManager to connect frameworks
+
+**Main Screens**:
+
+| ![Main](https://user-images.githubusercontent.com/58105647/230876968-391d5448-9ad7-4bdb-b882-88dd9db95575.png)  | ![List of categories](https://user-images.githubusercontent.com/58105647/230877199-d3147665-09d0-4176-94db-d1b8d8b07ffb.png) | ![Detailed categories](https://user-images.githubusercontent.com/58105647/230877238-60cf04b6-3f16-4104-b15d-9e6bcce4584f.png) |
+| ------------- | ------------- | ------------- |
+
+
