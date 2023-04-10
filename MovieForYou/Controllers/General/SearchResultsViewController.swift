@@ -13,11 +13,14 @@ protocol SearchResultsViewControllerDelegate: AnyObject {
 
 class SearchResultsViewController: UIViewController {
     
+    // MARK: - Properties
+
     public var titles = [Title]()
     
     public weak var delegate: SearchResultsViewControllerDelegate?
     
     // MARK: - Subviews
+    
     public let searchResultsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: 200)
@@ -28,6 +31,7 @@ class SearchResultsViewController: UIViewController {
     }()
 
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -50,11 +54,13 @@ class SearchResultsViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension SearchResultsViewController: UICollectionViewDelegate {
     
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension SearchResultsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         titles.count

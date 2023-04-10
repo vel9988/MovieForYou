@@ -9,9 +9,12 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
+    // MARK: - Properties
+
     private var titles = [Title]()
     
     // MARK: - Subviews
+    
     private var discoverTable: UITableView = {
         let tableView = UITableView()
         tableView.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
@@ -26,6 +29,7 @@ class SearchViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -52,6 +56,7 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: - Private method
+    
     private func fetchDiscoveryMovies() {
         APICaller.shared.getDiscoverMovies { [weak self] result in
             switch result {
@@ -69,6 +74,7 @@ class SearchViewController: UIViewController {
 }
 
 // MARK: - UISearchResultsUpdating
+
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
@@ -95,6 +101,7 @@ extension SearchViewController: UISearchResultsUpdating {
 }
 
 // MARK: - SearchResultsViewControllerDelegate
+
 extension SearchViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidTapItem(_ viewModel: TitlePreviewViewModel) {
         DispatchQueue.main.async { [weak self] in
@@ -106,6 +113,7 @@ extension SearchViewController: SearchResultsViewControllerDelegate {
 }
 
 // MARK: - UITableViewDelegate
+
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -130,6 +138,7 @@ extension SearchViewController: UITableViewDelegate {
 }
 
 // MARK: - UITableViewDataSource
+
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         titles.count

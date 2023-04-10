@@ -9,10 +9,9 @@ import UIKit
 import WebKit
 
 class TitlePreviewViewController: UIViewController {
-    
-//    private var selectedTitle: Title?
-    
+        
     // MARK: - Subviews
+    
     private let webView: WKWebView = {
         let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +58,7 @@ class TitlePreviewViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -73,6 +73,7 @@ class TitlePreviewViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
     func configure(with model: TitlePreviewViewModel) {
         titleLabel.text = model.title
         overviewLabel.text = model.overview
@@ -83,6 +84,7 @@ class TitlePreviewViewController: UIViewController {
     }
     
     // MARK: - Setup constraints
+    
     private func configureConstraints() {
         let webViewConstraints = [
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

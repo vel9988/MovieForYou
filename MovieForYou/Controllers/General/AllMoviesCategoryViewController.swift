@@ -9,9 +9,12 @@ import UIKit
 
 class AllMoviesCategoryViewController: UIViewController {
     
+    // MARK: - Properties
+
     private var titles = [Title]()
         
     // MARK: - Subviews
+    
     private var categoryTable: UITableView = {
         let table = UITableView()
         table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
@@ -20,6 +23,7 @@ class AllMoviesCategoryViewController: UIViewController {
     
 
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -38,6 +42,7 @@ class AllMoviesCategoryViewController: UIViewController {
     }
     
     // MARK: - Public methods
+    
     public func configure(with titles: [Title]) {
         self.titles = titles
         DispatchQueue.main.async { [weak self] in
@@ -49,6 +54,7 @@ class AllMoviesCategoryViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate
+
 extension AllMoviesCategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -73,6 +79,7 @@ extension AllMoviesCategoryViewController: UITableViewDelegate {
 }
 
 // MARK: - UITableViewDataSource
+
 extension AllMoviesCategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         titles.count

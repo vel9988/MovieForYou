@@ -13,6 +13,8 @@ protocol CollectionViewTableViewCellDelegate: AnyObject {
 
 class CollectionViewTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+
     static let identifier = "CollectionViewTableViewCell"
     
     weak var delegate: CollectionViewTableViewCellDelegate?
@@ -21,6 +23,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     
     
     // MARK: - Subviews
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 140, height: 200)
@@ -32,6 +35,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     
 
     // MARK: - Init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(collectionView)
@@ -53,6 +57,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     }
     
     // MARK: - Public method
+    
     public func configure(with titles: [Title]) {
         self.titles = titles
         DispatchQueue.main.async { [weak self] in
@@ -61,6 +66,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     }
     
     // MARK: - Private method
+    
     private func addTitleAt(indexPath: IndexPath) {
         DataPersistenceManager.shared.saveTitle(with: titles[indexPath.row]) { result in
             switch result {
@@ -75,11 +81,13 @@ class CollectionViewTableViewCell: UITableViewCell {
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension CollectionViewTableViewCell: UICollectionViewDelegate {
     
 }
 
 //MARK: - UICollectionViewDataSource
+
 extension CollectionViewTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         titles.count

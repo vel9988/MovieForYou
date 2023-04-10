@@ -13,11 +13,14 @@ protocol HomeHeaderUIViewDelegate: AnyObject {
 
 class HomeHeaderUIView: UIView {
     
+    // MARK: - Properties
+
     private var title: Title?
     
     weak var delegate: HomeHeaderUIViewDelegate?
     
     // MARK: - Subviews
+    
     private let playButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -64,6 +67,7 @@ class HomeHeaderUIView: UIView {
     }()
 
     // MARK: - Init
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
         
@@ -90,6 +94,7 @@ class HomeHeaderUIView: UIView {
     }
     
     // MARK: - Private methods
+    
     @objc private func playTitleAction() {
         guard let title = title else { return }
         delegate?.homeHeaderUIViewDidTapPlay(with: title)
@@ -119,6 +124,7 @@ class HomeHeaderUIView: UIView {
     }
     
     // MARK: - Public method
+    
     public func configure(with model: TitleViewModel, title: Title) {
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.posterURL)") else { return }
         homeImageView.sd_setImage(with: url)
@@ -129,6 +135,7 @@ class HomeHeaderUIView: UIView {
     }
     
     // MARK: - Setup constraints
+    
     private func applyConstraints() {
         let playButtonConstraints = [
             playButton.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -30),

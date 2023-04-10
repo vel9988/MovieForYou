@@ -17,9 +17,12 @@ enum Sections: Int {
 
 final class HomeViewController: UIViewController {
     
+    // MARK: - Properties
+
     let sectionTitles = ["Trending Movies", "Trending Tv", "Popular", "Upcoming", "Top rated"]
     
     // MARK: - Subviews
+    
     private let homeFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
@@ -29,6 +32,7 @@ final class HomeViewController: UIViewController {
     private var headerView: HomeHeaderUIView?
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +57,7 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: - Private method
+    
     private func configureHomeHeaderView() {
         APICaller.shared.getPopularMovies { [weak self] result in
             switch result {
@@ -80,6 +85,7 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: - Privat method
+    
     @objc private func allButtonTapped(sender : UIButton) {
         switch sender.tag {
         case Sections.TrendingMovies.rawValue:
@@ -161,6 +167,7 @@ final class HomeViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate
+
 extension HomeViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         sectionTitles.count
@@ -168,6 +175,7 @@ extension HomeViewController: UITableViewDelegate {
 }
 
 //MARK: - UITableViewDataSource
+
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
@@ -271,6 +279,7 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 // MARK: - CollectionViewTableViewCellDelegate
+
 extension HomeViewController: CollectionViewTableViewCellDelegate {
     func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel) {
         DispatchQueue.main.async { [weak self] in
@@ -283,6 +292,7 @@ extension HomeViewController: CollectionViewTableViewCellDelegate {
 }
 
 // MARK: - HomeHeaderUIViewDelegate
+
 extension HomeViewController: HomeHeaderUIViewDelegate {
     func homeHeaderUIViewDidTapPlay(with title: Title) {
         let titleName = title.originalTitle ?? title.originalName ?? ""

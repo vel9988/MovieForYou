@@ -9,9 +9,12 @@ import UIKit
 
 class TitleTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+
     static let identifier = "TitleTableViewCell"
     
     // MARK: - Subviews
+    
     private let titlesPosterUIImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill

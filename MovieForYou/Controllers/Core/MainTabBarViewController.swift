@@ -10,6 +10,7 @@ import UIKit
 class MainTabBarViewController: UITabBarController {
 
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +20,7 @@ class MainTabBarViewController: UITabBarController {
     }
     
     // MARK: - Private methods
+    
     private func setupViewControllers() {
         let vc1 = UINavigationController(rootViewController: HomeViewController())
         let vc2 = UINavigationController(rootViewController: MyFavouritesViewController())

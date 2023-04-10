@@ -9,9 +9,13 @@ import UIKit
 import SDWebImage
 
 class TitleCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+
     static let identifier = "TitleCollectionViewCell"
     
     // MARK: - Subviews
+    
     private let posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -19,6 +23,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: - Init
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
         contentView.addSubview(posterImageView)

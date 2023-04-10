@@ -9,9 +9,12 @@ import UIKit
 
 class MyFavouritesViewController: UIViewController {
     
+    // MARK: - Properties
+
     private var titles = [TitleItem]()
     
     // MARK: - Subviews
+    
     private let favouritesTable: UITableView = {
         let table = UITableView()
         table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
@@ -19,6 +22,7 @@ class MyFavouritesViewController: UIViewController {
     }()
 
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -44,6 +48,7 @@ class MyFavouritesViewController: UIViewController {
     }
     
     // MARK: - Private method
+    
     private func fetchLocalStorageForFavourites() {
         DataPersistenceManager.shared.fetchingTitlesFromDatabase { [weak self] result in
             switch result {
@@ -62,10 +67,12 @@ class MyFavouritesViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate
+
 extension MyFavouritesViewController: UITableViewDelegate {
     
 }
 // MARK: - UITableViewDataSource
+
 extension MyFavouritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         titles.count
