@@ -8,7 +8,6 @@
 
 **What was done**:
 
-- Used SwiftPackageManager to connect additional modules
 - Implemented UI via code (UIKit)
 - Organized persistent layer using CoreData for local data storage
 - Created network layer via URLSession to work with API
